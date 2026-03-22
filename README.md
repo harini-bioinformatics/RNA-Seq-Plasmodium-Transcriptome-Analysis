@@ -1,2 +1,2 @@
 # RNA-Seq-Plasmodium-Transcriptome-Analysis
-Comprehensive NGS analysis including whole genome sequencing, RNA-Seq, variant calling, and visualization using bioinformatics pipelines
+End-to-end NGS pipeline including whole genome sequencing, alignment, variant calling, and visualization using PCA and volcano plots
