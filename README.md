@@ -1,4 +1,6 @@
 # Next-Generation Sequencing (NGS) Analysis: WGS and RNA-Seq Workflow
+## 🚀 Key Result
+Identified genetic variants through whole genome sequencing and significant gene expression changes using RNA-Seq, supported by PCA clustering and volcano plot analysis.
 
 ## 🚀 Project Highlights
 - Performed Whole Genome Sequencing (WGS) analysis including alignment and variant calling
@@ -23,7 +25,7 @@ This project focuses on Next-Generation Sequencing (NGS) workflows including Who
 
 
 ---
-
+The following workflow represents the complete NGS pipeline implemented for genome and transcriptome analysis.
 ## ⚙️ Workflow
 
 ### 🔹 1. Data Retrieval
@@ -73,5 +75,27 @@ Trinity --seqType fq \
 
 By using the trinity output file can plot the R plot, PCA plot and volcano plot
 
-## Author
-Harini R
+## 📊 Results Visualization
+
+### PCA Plot
+![PCA](pca.png)
+
+### Volcano Plot
+![Volcano](volcano.png)
+
+### R Plot
+![Rplot](rplot.png)
+
+## 🧠 Interpretation
+
+- PCA plots showed clear clustering of samples, indicating variation between experimental conditions  
+- Volcano plots highlighted significantly upregulated and downregulated genes  
+- R plots demonstrated overall gene expression distribution  
+
+## 🧠 Key Findings
+- Identified significant gene expression changes across samples  
+- Visualization revealed patterns useful for biological interpretation  
+- Differential expression analysis helped identify potential genes of interest  
+
+## 📌 Conclusion
+This study demonstrates how statistical analysis and visualization techniques can be used to interpret gene expression data and identify biologically significant patterns.
