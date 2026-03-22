@@ -1,87 +1,77 @@
-# RNA-Seq-Plasmodium-Transcriptome-Analysis
-End-to-end NGS pipeline including whole genome sequencing, alignment, variant calling, and visualization using PCA and volcano plots
-
-
-# NGS-Based Whole Genome and Transcriptome Analysis Pipeline
+# Next-Generation Sequencing (NGS) Analysis: WGS and RNA-Seq Workflow
 
 ## 🚀 Project Highlights
-- Performed Whole Genome Sequencing (WGS) analysis using NGS data
-- Conducted quality control and preprocessing of raw reads
-- Performed genome alignment and variant calling
-- Generated PCA plots and volcano plots for data visualization
-- Identified genetic variations and differential expression patterns
+- Performed Whole Genome Sequencing (WGS) analysis including alignment and variant calling
+- Conducted RNA-Seq analysis using Trinity for transcriptome assembly
+- Generated visualization plots including PCA, volcano plot, and R plots
+- Implemented end-to-end NGS pipeline using command-line tools
 
 ## 🧬 Overview
-This project focuses on an end-to-end Next-Generation Sequencing (NGS) workflow integrating Whole Genome Sequencing (WGS) and RNA-Seq analysis. The pipeline includes data preprocessing, alignment, variant calling, and visualization of gene expression patterns.
+This project focuses on Next-Generation Sequencing (NGS) workflows including Whole Genome Sequencing (WGS) and RNA Sequencing (RNA-Seq). The study involves raw data processing, alignment, variant calling, transcriptome assembly, and visualization of gene expression patterns.
+
+---
 
 ## 🧪 Tools Used
-- FastQC
-- Trimmomatic
-- BWA
-- SAMtools
-- BCFtools
-- VCFtools
-- R (for PCA & Volcano Plot)
+- FastQC  
+- Trimmomatic  
+- BWA  
+- SAMtools  
+- BCFtools  
+- VCFtools  
+- Trinity  
+- R  
+
+
+---
 
 ## ⚙️ Workflow
 
-### 1. Data Retrieval
-- Downloaded FASTQ files from NCBI SRA database
+### 🔹 1. Data Retrieval
+- Downloaded FASTQ files from NCBI SRA database using SRA Toolkit
 
-### 2. Quality Control
-fastqc sample.fastq
+---
 
-### 3. Read Trimming
-trimmomatic PE sample_1.fastq sample_2.fastq \
-trimmed_1P.fastq trimmed_1U.fastq \
-trimmed_2P.fastq trimmed_2U.fastq \
-SLIDINGWINDOW:4:20 MINLEN:50
+## 🧬 Whole Genome Sequencing (WGS)
 
-### 4. Genome Alignment
-bwa index reference.fasta
-bwa mem reference.fasta sample_1.fastq sample_2.fastq > out.sam
+### 🔹 Alignment and Variant Calling
+
+bwa index REFERENCE.fasta
+
+bwa mem REFERENCE.fasta SRR29019342_1.fastq SRR29019342_2.fastq > out.sam
+
+samtools flagstat out.sam > out-flagstat_output.txt
 
 samtools view -S -b out.sam > out.bam
-samtools sort out.bam -o out_sorted.bam
-samtools index out_sorted.bam
+samtools sort out.bam -o out_sort.bam
+samtools index out_sort.bam
 
-### 5. Variant Calling
-samtools mpileup -f reference.fasta out_sorted.bam > out.pileup
+samtools mpileup -f REFERENCE.fasta out_sort.bam > out.pileup
 
-bcftools mpileup -f reference.fasta out_sorted.bam | \
-bcftools call -mv -Oz -o variants.vcf.gz
+bcftools mpileup -f REFERENCE.fasta out_sort.bam | \
+bcftools call -mv -Oz -o out.vcf.gz
 
-vcftools --gzvcf variants.vcf.gz --minQ 30 --recode --out filtered
+bcftools index out.vcf.gz
 
-### 6. Visualization
-- Generated PCA plots using R
-- Created volcano plots to identify differentially expressed genes
+vcftools --gzvcf out.vcf.gz \
+--recode --recode-INFO-all \
+--out out_filtered --minQ 30
 
-## 📊 Visualization
+conda create -n trinity_env -c bioconda -c conda-forge trinity
+conda activate trinity_env
 
-### PCA Plot
-![PCA](pca.png)
+### RNA Sequencing (RNA-Seq)
+Transcriptome Assembly (Trinity)
 
-### Volcano Plot
-![Volcano](volcano.png)
+Trinity --version
 
-### R Plot
-![Rplot](rplot.png)
+Trinity --seqType fq \
+--left SRR21159790_1_paired.fastq \
+--right SRR21159790_2_paired.fastq \
+--max_memory 50G \
+--CPU 8 \
+--output trinity_out_SRR21159790
 
-## 📊 Results
-- High-quality reads obtained after trimming
-- Successful alignment of reads to reference genome
-- Identification of genetic variants using variant calling pipeline
-- PCA plots showed clustering of samples
-- Volcano plots highlighted significantly expressed genes
-
-## 🧠 Key Findings
-- Identified multiple genetic variations through WGS analysis
-- Visualization revealed distinct gene expression patterns
-- PCA and volcano plots helped in identifying significant biological insights
-
-## 📌 Conclusion
-This project demonstrates a complete NGS pipeline from raw data processing to variant identification and data visualization, providing insights into genomic variation and gene expression.
+By using the trinity output file can plot the R plot, PCA plot and volcano plot
 
 ## Author
 Harini R
