@@ -80,11 +80,17 @@ By using the trinity output file can plot the R plot, PCA plot and volcano plot
 ### PCA Plot
 ![PCA](pca.png)
 
+*PCA plot showing clustering of samples based on gene expression patterns*
+
 ### Volcano Plot
 ![Volcano](volcano.png)
 
+*Volcano plot showing significantly upregulated and downregulated genes*
+
 ### R Plot
 ![Rplot](rplot.png)
+
+*R plot representing overall gene expression distribution across samples*
 
 ## 🧠 Interpretation
 
